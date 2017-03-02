@@ -3,8 +3,8 @@
 
 # Install instructions:
 	To install tensorflow:
-		pip install -r requirements.txt
+	pip install -r requirements.txt
 	You will also need opencv2:
-		[Linux instal](http://docs.opencv.org/2.4/doc/tutorials/introduction/linux_install/linux_install.html)
-		[Windows install](http://docs.opencv.org/2.4/doc/tutorials/introduction/windows_install/windows_install.html)
+	[Linux instal](http://docs.opencv.org/2.4/doc/tutorials/introduction/linux_install/linux_install.html)
+	[Windows install](http://docs.opencv.org/2.4/doc/tutorials/introduction/windows_install/windows_install.html)
 	
