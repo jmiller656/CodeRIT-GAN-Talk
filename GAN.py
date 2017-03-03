@@ -2,7 +2,7 @@ import tensorflow as tf
 import os
 import utils
 tf.reset_default_graph()
-batch_size = 100
+batch_size = 1
 iterations = 100000
 sample_directory = './figs'
 model_directory = './models'
@@ -41,6 +41,7 @@ with tf.Session() as sess:
 	except:
 		print "Previous weights not found"
 	"""
+	print "Training"
 	for i in range(iterations):
 
 		gLoss,dLoss = utils.train(real_in,z_in,trainerG,g_loss,trainerD,d_loss,sess,im_size=im_size,batch_size=batch_size,z_size=z_size)
