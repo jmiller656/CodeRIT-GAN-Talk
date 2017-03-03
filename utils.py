@@ -146,9 +146,9 @@ def train(real_in,fake_in,update_G,g_loss,update_D,d_loss,sess,im_size=64,batch_
 	return gLoss,dLoss
 	
 
-def sample(z_size,batch_size,spongebob,z_in,sess,sample_directory='./sample',i=0):
+def sample(z_size,batch_size,g,z_in,sess,sample_directory='./sample',i=0):
 	test_input = np.random.uniform(-1,1,size=[batch_size,z_size]).astype(np.float32)
-	newZ = sess.run(spongebob,feed_dict={z_in: test_input})
+	newZ = sess.run(g,feed_dict={z_in: test_input})
 	newZ *= 255.0			
 	newZ += 128.0
 	if not os.path.exists(sample_directory):

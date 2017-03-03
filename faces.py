@@ -2,9 +2,10 @@ import random
 import cv2
 import numpy as np
 import os
-faces = os.listdir('FACE')
-num_faces = len(os.listdir('FACE')) 
-print num_faces
+import scipy.misc
+imdir = 'faces'
+faces = os.listdir(imdir)
+num_faces = len(os.listdir(imdir)) 
 def get_batch(im_size,batch_size):
 	items = []
 	for i in range(batch_size):
@@ -16,7 +17,7 @@ def get_batch(im_size,batch_size):
 		#temp /= 255.print temp
 		temp /= 127.5
 		temp -= 1"""
-		items.append(get_image("FACE/"+faces[image_index],im_size,im_size))
+		items.append(get_image(imdir+"/"+faces[image_index],im_size,im_size))
 	return items
 
 def get_image(image_path, input_height, input_width,
@@ -30,10 +31,9 @@ def save_images(images, size, image_path):
 	return imsave(inverse_transform(images), size, image_path)
 
 def imread(path, is_grayscale = False):
-	if (is_grayscale):
-		return cv2.imread(path, flatten = True).astype(np.float)
-	else:
-		return cv2.imread(path).astype(np.float)
+	img = scipy.misc.imread(path)
+	img = cv2.cvtColor(img,cv2.COLOR_GRAY2RGB).astype(np.float)
+	return img 
 
 def merge_images(images, size):
 	return inverse_transform(images)
@@ -48,7 +48,7 @@ def merge(images, size):
 	return img
 
 def imsave(images, size, path):
-	return cv2.imwrite(path, merge(images, size))
+	return scipy.misc.imsave(path, merge(images, size))
 
 def center_crop(x, crop_h, crop_w,
                 resize_h=64, resize_w=64):
@@ -57,7 +57,7 @@ def center_crop(x, crop_h, crop_w,
 	h, w = x.shape[:2]
 	j = int(round((h - crop_h)/2.))
 	i = int(round((w - crop_w)/2.))
-	return cv2.resize(
+	return scipy.misc.imresize(
       	x[j:j+crop_h, i:i+crop_w], [resize_h, resize_w])
 
 def transform(image, input_height, input_width, 
@@ -67,7 +67,7 @@ def transform(image, input_height, input_width,
 		image, input_height, input_width, 
 		resize_height, resize_width)
 	else:
-		cropped_image = cv2.resize(image, [resize_height, resize_width])
+		cropped_image = scipy.misc.imresize(image, [resize_height, resize_width])
 	return np.array(cropped_image)/127.5 - 1.
 
 def inverse_transform(images):
