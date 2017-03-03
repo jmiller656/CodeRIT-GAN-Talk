@@ -22,7 +22,7 @@ def get_batch(im_size,batch_size):
 
 def get_image(image_path, input_height, input_width,
 		resize_height=64, resize_width=64,
-		is_crop=True, is_grayscale=False):
+		is_crop=False, is_grayscale=False):
 	image = imread(image_path, is_grayscale)
 	return transform(image, input_height, input_width,
 	resize_height, resize_width, is_crop)
@@ -47,8 +47,8 @@ def merge(images, size):
 		img[j*h:j*h+h, i*w:i*w+w, :] = image
 	return img
 
-def imsave(images, size, path):
-	return scipy.misc.imsave(path, merge(images, size))
+def imsave(images, path):
+	return scipy.misc.imsave(path, inverse_transform(images))
 
 def center_crop(x, crop_h, crop_w,
                 resize_h=64, resize_w=64):
@@ -61,7 +61,7 @@ def center_crop(x, crop_h, crop_w,
       	x[j:j+crop_h, i:i+crop_w], [resize_h, resize_w])
 
 def transform(image, input_height, input_width, 
-              resize_height=64, resize_width=64, is_crop=True):
+              resize_height=64, resize_width=64, is_crop=False):
 	if is_crop:
 		cropped_image = center_crop(
 		image, input_height, input_width, 
