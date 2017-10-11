@@ -15,10 +15,10 @@ g = utils.generator(z_in,im_size,layers,batch_size)
 d = utils.discriminator(real_in,batch_size)
 d2 = utils.discriminator(g,batch_size,reuse=True)
 
-d_loss_real = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(d,tf.ones_like(d)))
-d_loss_fake = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(d2,tf.zeros_like(d2)))
+d_loss_real = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(logits=d,labels=tf.ones_like(d)))
+d_loss_fake = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(logits=d2,labels=tf.zeros_like(d2)))
 d_loss = d_loss_real + d_loss_fake
-g_loss = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(d2,tf.ones_like(d2)))
+g_loss = tf.reduce_mean(tf.nn.sigmoid_cross_entropy_with_logits(logits=d2,labels=tf.ones_like(d2)))
 tvars = tf.trainable_variables()
 g_params = []
 d_params = []

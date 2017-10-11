@@ -153,6 +153,3 @@ def sample(z_size,batch_size,g,z_in,sess,sample_directory='./sample',i=0):
 		os.makedirs(sample_directory)
 	faces.imsave(newZ[0],sample_directory+'/gen'+str(i)+'.png')
 	#cv2.imwrite(sample_directory+'/gen'+str(i)+'.png',newZ[0])
-
-
-
