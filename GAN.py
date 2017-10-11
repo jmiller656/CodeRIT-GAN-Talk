@@ -46,14 +46,14 @@ with tf.Session() as sess:
 
 		gLoss,dLoss = utils.train(real_in,z_in,trainerG,g_loss,trainerD,d_loss,sess,im_size=im_size,batch_size=batch_size,z_size=z_size)
 		if i%1 ==0:
-			print "Gen Loss: " + str(gLoss) + " Disc Loss: " + str(dLoss)
+			print("Gen Loss: " + str(gLoss) + " Disc Loss: " + str(dLoss))
 			utils.sample(z_size,batch_size,g,z_in,sess,i=i%5000)
 			# sample here
 		if i % 1000 == 0 and i != 0:
 			if not os.path.exists(model_directory):
 				os.makedirs(model_directory)
 			saver.save(sess,model_directory+'/model-'+str(i)+'.ckpt')
-			print "Saved Model"
+			print("Saved Model")
 
 
 
